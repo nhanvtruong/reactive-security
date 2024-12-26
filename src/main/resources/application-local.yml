@@ -1,0 +1,22 @@
+spring:
+  r2dbc:
+    pool:
+      max-size: 20
+      initial-size: 10
+      validation-query: SELECT 1;
+    url: r2dbc:postgresql://localhost:5432/access
+    username: postgres
+    password: admin
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    url: jdbc:postgresql://localhost:5432/access
+    user: postgres
+    password: admin
+  jpa:
+    properties:
+      hibernate:
+        default_schema: public
+        show_sql: true
+    hibernate:
+      ddl-auto: none

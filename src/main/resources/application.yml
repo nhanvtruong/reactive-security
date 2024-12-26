@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: local
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+
+server:
+  error:
+    include-message: always
+    include-stacktrace: always
