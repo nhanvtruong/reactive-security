@@ -1,6 +1,6 @@
 package com.nhanvtruong.identity.infrastructure.persistence.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
@@ -15,10 +15,10 @@ public class Metadata {
   @CreatedBy
   protected String createdBy;
   @CreatedDate
-  protected Date createdDate;
+  protected LocalDateTime createdDate;
   @LastModifiedBy
   protected String lastModifiedBy;
   @LastModifiedDate
-  protected Date lastModifiedDate;
+  protected LocalDateTime lastModifiedDate;
 
 }
