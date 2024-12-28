@@ -20,3 +20,8 @@ spring:
         show_sql: true
     hibernate:
       ddl-auto: none
+application:
+  security:
+    access-token-expiration: 600000 # 10 minutes
+    refresh-token-expiration: 86400000 # 24 hours
+    secret-key: 5266556A586E3404E63272357538F4428472B4B6250645367566B5970IL0VEU3000
