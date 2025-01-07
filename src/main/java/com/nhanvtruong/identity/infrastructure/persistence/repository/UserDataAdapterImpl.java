@@ -23,7 +23,7 @@ public class UserDataAdapterImpl implements UserDataAdapter {
   @Override
   @Transactional
   public Mono<UserCreatedResponseDto> createUser(UserEntity user) {
-    user.setPasswordHashed(passwordEncoder.encode(user.getPasswordHashed()));
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
     UserModel userModel = UserDataMapper.INSTANCE.toUserModel(user);
     return userReactiveRepository.save(userModel)
         .map(UserDataMapper.INSTANCE::toResponseDto)

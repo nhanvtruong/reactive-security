@@ -5,6 +5,7 @@ import com.nhanvtruong.identity.infrastructure.persistence.model.UserModel;
 import com.nhanvtruong.identity.interfaces.dto.res.UserCreatedResponseDto;
 import com.nhanvtruong.identity.interfaces.dto.rq.UserCreatedRequestDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
@@ -14,6 +15,7 @@ public interface UserDataMapper {
 
   UserEntity toUserEntity(UserCreatedRequestDto requestDto);
 
+  @Mapping(source = "password", target = "passwordHashed")
   UserModel toUserModel(UserEntity entity);
 
   UserCreatedResponseDto toResponseDto(UserModel userModel);

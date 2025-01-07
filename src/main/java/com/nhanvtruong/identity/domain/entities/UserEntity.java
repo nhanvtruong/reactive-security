@@ -14,7 +14,7 @@ import lombok.Setter;
 public class UserEntity {
 
   private String username;
-  private String passwordHashed;
+  private String password;
   private String email;
 
 }

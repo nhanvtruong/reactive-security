@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 @Builder
-public record UserCreatedRequestDto(@NotNull String username, @NotNull String passwordHashed,
+public record UserCreatedRequestDto(@NotNull String username, @NotNull String password,
                                     @Email String email) {
-  // Note : Require Frontend hash the password before sending to backend
 }
