@@ -1,5 +1,7 @@
 package com.nhanvtruong.identity.interfaces.dto.res;
 
-public record UserLoginRequestDto(String username, String password) {
+import jakarta.validation.constraints.NotNull;
+
+public record UserLoginRequestDto(@NotNull String username,@NotNull String password) {
 
 }

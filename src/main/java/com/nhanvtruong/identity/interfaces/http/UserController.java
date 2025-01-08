@@ -1,5 +1,6 @@
 package com.nhanvtruong.identity.interfaces.http;
 
+import com.nhanvtruong.identity.interfaces.dto.res.ApiResponse;
 import com.nhanvtruong.identity.interfaces.dto.res.UserCreatedResponseDto;
 import com.nhanvtruong.identity.interfaces.dto.res.UserLoginRequestDto;
 import com.nhanvtruong.identity.interfaces.dto.rq.UserCreatedRequestDto;
@@ -28,9 +29,10 @@ public class UserController {
   }
 
   @PostMapping("/public/users/login")
-  public ResponseEntity<Mono<UserLoginResponseDto>> login(
+  public Mono<ResponseEntity<ApiResponse<UserLoginResponseDto>>> login(
       @Valid @RequestBody UserLoginRequestDto userLoginRequestDto) {
-    return new ResponseEntity<>(userCommandHandler.login(userLoginRequestDto), HttpStatus.OK);
+    return userCommandHandler.login(userLoginRequestDto)
+        .map(res -> ResponseEntity.ok(new ApiResponse<>(res)));
   }
 
 }

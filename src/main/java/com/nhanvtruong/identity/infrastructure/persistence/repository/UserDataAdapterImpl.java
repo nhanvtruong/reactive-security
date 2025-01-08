@@ -7,6 +7,7 @@ import com.nhanvtruong.identity.domain.entities.UserEntity;
 import com.nhanvtruong.identity.infrastructure.persistence.model.UserModel;
 import com.nhanvtruong.identity.interfaces.dto.res.UserCreatedResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,7 @@ public class UserDataAdapterImpl implements UserDataAdapter {
     UserModel userModel = UserDataMapper.INSTANCE.toUserModel(user);
     return userReactiveRepository.save(userModel)
         .map(UserDataMapper.INSTANCE::toResponseDto)
-        .onErrorResume(e -> Mono.error(new UserCreateFailedException("Failed to create user")));
+        .onErrorResume(DataIntegrityViolationException.class,
+            e -> Mono.error(new UserCreateFailedException("Username already exists")));
   }
 }
