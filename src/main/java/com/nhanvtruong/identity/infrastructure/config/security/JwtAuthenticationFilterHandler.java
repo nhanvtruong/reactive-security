@@ -2,8 +2,8 @@ package com.nhanvtruong.identity.infrastructure.config.security;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
-import com.nhanvtruong.identity.infrastructure.constants.HeaderConstants;
-import com.nhanvtruong.identity.infrastructure.exceptions.InvalidToken;
+import com.nhanvtruong.identity.application.constants.HeaderConstants;
+import com.nhanvtruong.identity.application.exceptions.InvalidToken;
 import java.util.Collection;
 import java.util.Optional;
 import lombok.NonNull;
@@ -25,7 +25,7 @@ public class JwtAuthenticationFilterHandler implements JwtAuthenticationFilter {
 
   private final ReactiveUserDetailsService userDetailsService;
 
-  private final TokenService tokenService;
+  private final TokenServiceImpl tokenServiceImpl;
 
   @NonNull
   @Override
@@ -40,7 +40,7 @@ public class JwtAuthenticationFilterHandler implements JwtAuthenticationFilter {
             exchange.getRequest().getHeaders().getFirst(AUTHORIZATION))
         .filter(token -> token.startsWith(HeaderConstants.BEARER))
         .map(token -> token.substring(HeaderConstants.BEARER.length()))
-        .map(tokenService::extractToken)
+        .map(tokenServiceImpl::extractSubjectFromToken)
         .orElseThrow(() -> new InvalidToken("Invalid JWT Token"));
 
     return userDetailsService.findByUsername(username)

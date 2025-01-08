@@ -1,4 +1,4 @@
-package com.nhanvtruong.identity.infrastructure.exceptions;
+package com.nhanvtruong.identity.application.exceptions;
 
 public class UserCreateFailedException extends RuntimeException {
 

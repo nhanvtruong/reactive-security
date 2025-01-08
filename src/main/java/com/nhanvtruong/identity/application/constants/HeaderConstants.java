@@ -1,4 +1,4 @@
-package com.nhanvtruong.identity.infrastructure.constants;
+package com.nhanvtruong.identity.application.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

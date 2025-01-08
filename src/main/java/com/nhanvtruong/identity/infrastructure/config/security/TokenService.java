@@ -1,21 +1,22 @@
 package com.nhanvtruong.identity.infrastructure.config.security;
 
-import com.nhanvtruong.identity.infrastructure.config.properties.SecurityProperties;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.nhanvtruong.identity.domain.entities.UserEntity;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import java.util.function.Function;
 
-@Service
-@AllArgsConstructor
-public class TokenService {
+public interface TokenService {
 
-  private final SecurityProperties securityProperties;
+  JwtBuilder jwtTokenBuilder(UserEntity userDetails, Long expiresInMilliseconds);
 
-  public String extractToken(String token) {
-    return token;
-  }
+  String generateAccessToken(UserEntity userDetails);
 
-//  public String generateToken(UserDetails userDetails, Long expiresInMiliseconds) {
-//
-//  }
+  String generateRefreshToken(UserEntity userDetails);
+
+  String extractSubjectFromToken(String token);
+
+  Claims extractClaimsWithToken(String token);
+
+  <T> T extractValueFromClaims(String token, Function<Claims, T> claimsTFunction);
 
 }

@@ -7,6 +7,7 @@ import com.nhanvtruong.identity.interfaces.dto.rq.UserCreatedRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Mapper
 public interface UserDataMapper {
@@ -20,4 +21,5 @@ public interface UserDataMapper {
 
   UserCreatedResponseDto toResponseDto(UserModel userModel);
 
+  UserEntity toUserEntity(UserDetails userDetails);
 }

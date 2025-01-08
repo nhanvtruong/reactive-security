@@ -1,9 +1,9 @@
 package com.nhanvtruong.identity.infrastructure.persistence.repository;
 
+import com.nhanvtruong.identity.application.exceptions.UserCreateFailedException;
 import com.nhanvtruong.identity.application.mapper.UserDataMapper;
 import com.nhanvtruong.identity.application.port.UserDataAdapter;
 import com.nhanvtruong.identity.domain.entities.UserEntity;
-import com.nhanvtruong.identity.infrastructure.exceptions.UserCreateFailedException;
 import com.nhanvtruong.identity.infrastructure.persistence.model.UserModel;
 import com.nhanvtruong.identity.interfaces.dto.res.UserCreatedResponseDto;
 import lombok.RequiredArgsConstructor;

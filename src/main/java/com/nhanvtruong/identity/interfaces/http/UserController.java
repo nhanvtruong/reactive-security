@@ -1,14 +1,15 @@
 package com.nhanvtruong.identity.interfaces.http;
 
 import com.nhanvtruong.identity.interfaces.dto.res.UserCreatedResponseDto;
+import com.nhanvtruong.identity.interfaces.dto.res.UserLoginRequestDto;
 import com.nhanvtruong.identity.interfaces.dto.rq.UserCreatedRequestDto;
+import com.nhanvtruong.identity.interfaces.dto.rq.UserLoginResponseDto;
 import com.nhanvtruong.identity.interfaces.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Mono;
@@ -26,9 +27,10 @@ public class UserController {
         HttpStatus.CREATED);
   }
 
-  @GetMapping("/healthcheck")
-  public ResponseEntity<Mono<String>> heathCheck() {
-    return new ResponseEntity<>(Mono.just("Service is healthy and secured"), HttpStatus.OK);
+  @PostMapping("/public/users/login")
+  public ResponseEntity<Mono<UserLoginResponseDto>> login(
+      @Valid @RequestBody UserLoginRequestDto userLoginRequestDto) {
+    return new ResponseEntity<>(userCommandHandler.login(userLoginRequestDto), HttpStatus.OK);
   }
 
 }
