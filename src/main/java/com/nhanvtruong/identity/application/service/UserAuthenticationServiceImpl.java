@@ -1,15 +1,12 @@
-package com.nhanvtruong.identity.application.cqrs.command;
+package com.nhanvtruong.identity.application.service;
 
 import com.nhanvtruong.identity.application.mapper.UserDataMapper;
 import com.nhanvtruong.identity.application.port.UserDataAdapter;
 import com.nhanvtruong.identity.application.port.UserDetailsAdapter;
-import com.nhanvtruong.identity.domain.entities.UserEntity;
 import com.nhanvtruong.identity.infrastructure.config.security.TokenService;
-import com.nhanvtruong.identity.interfaces.dto.res.UserCreatedResponseDto;
 import com.nhanvtruong.identity.interfaces.dto.res.UserLoginRequestDto;
-import com.nhanvtruong.identity.interfaces.dto.rq.UserCreatedRequestDto;
 import com.nhanvtruong.identity.interfaces.dto.rq.UserLoginResponseDto;
-import com.nhanvtruong.identity.interfaces.service.UserService;
+import com.nhanvtruong.identity.interfaces.service.UserAuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +15,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class UserCommandHandler implements UserService {
+public class UserAuthenticationServiceImpl implements UserAuthenticationService {
 
   private final UserDataAdapter userDataAdapter;
 
@@ -27,12 +24,6 @@ public class UserCommandHandler implements UserService {
   private final UserDetailsAdapter userDetailsAdapter;
 
   private final PasswordEncoder passwordEncoder;
-
-  @Override
-  public Mono<UserCreatedResponseDto> createUser(UserCreatedRequestDto userCreatedRequestDto) {
-    UserEntity userEntity = UserDataMapper.INSTANCE.toUserEntity(userCreatedRequestDto);
-    return userDataAdapter.createUser(userEntity);
-  }
 
   @Override
   public Mono<UserLoginResponseDto> login(UserLoginRequestDto userLoginRequestDto) {
@@ -46,6 +37,11 @@ public class UserCommandHandler implements UserService {
           String refreshToken = tokenService.generateRefreshToken(userEntity);
           return Mono.just(new UserLoginResponseDto(accessToken, refreshToken));
         });
+  }
+
+  @Override
+  public Mono<Void> logout(String authToken) {
+    return null;
   }
 
 }
