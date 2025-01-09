@@ -51,7 +51,7 @@ public class JwtAuthenticationFilterHandler implements JwtAuthenticationFilter {
                     exchange));
   }
 
-  private static Mono<Void> authenticateUser(String username,
+  private Mono<Void> authenticateUser(String username,
       Collection<? extends GrantedAuthority> grantedAuthorities, WebFilterChain chain,
       ServerWebExchange exchange) {
     Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -63,7 +63,7 @@ public class JwtAuthenticationFilterHandler implements JwtAuthenticationFilter {
         .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
   }
 
-  private static Mono<Void> authenticatePublicEndpointAccess(
+  private Mono<Void> authenticatePublicEndpointAccess(
       ServerWebExchange exchange, WebFilterChain chain) {
     return authenticateUser("anonymous", null, chain, exchange);
   }

@@ -28,10 +28,10 @@ public class UserAuthenticationController {
   }
 
   @PostMapping("users/logout")
-  public Mono<ResponseEntity<ApiResponse<Void>>> logout(
+  public Mono<ResponseEntity<ApiResponse<String>>> logout(
       @RequestHeader("Authorization") String authorization) {
-    return userAuthenticationService.logout(authorization)
-        .map(res -> new ResponseEntity<>(new ApiResponse<>(res), HttpStatus.ACCEPTED));
+    return Mono.just(new ResponseEntity<>(new ApiResponse<>("logout"), HttpStatus.ACCEPTED));
   }
+
 
 }
