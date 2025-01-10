@@ -2,5 +2,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
-  <include file="db/changelog/202411230900_table_user_ddl.sql" />
+  <include file="db/changelog/202411230900_table_user_ddl.sql"/>
+  <include file="db/changelog/202501100329_table_token_ddl.sql"/>
 </databaseChangeLog>
