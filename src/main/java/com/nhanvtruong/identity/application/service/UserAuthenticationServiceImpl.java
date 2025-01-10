@@ -1,5 +1,8 @@
 package com.nhanvtruong.identity.application.service;
 
+import static com.nhanvtruong.identity.application.exceptions.enums.ErrorsEnum.INCORRECT_USER_NAME_PASSWORD;
+
+import com.nhanvtruong.identity.application.exceptions.IncorrectUsernamePasswordException;
 import com.nhanvtruong.identity.application.mapper.UserDataMapper;
 import com.nhanvtruong.identity.application.port.UserDataAdapter;
 import com.nhanvtruong.identity.application.port.UserDetailsAdapter;
@@ -8,7 +11,6 @@ import com.nhanvtruong.identity.interfaces.dto.res.UserLoginRequestDto;
 import com.nhanvtruong.identity.interfaces.dto.rq.UserLoginResponseDto;
 import com.nhanvtruong.identity.interfaces.service.UserAuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -30,7 +32,8 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
     return userDetailsAdapter.findByUsername(userLoginRequestDto.username())
         .filter(userDetails ->
             passwordEncoder.matches(userLoginRequestDto.password(), userDetails.getPassword()))
-        .switchIfEmpty(Mono.error(new BadCredentialsException("Username or password is incorrect")))
+        .switchIfEmpty(
+            Mono.error(new IncorrectUsernamePasswordException(INCORRECT_USER_NAME_PASSWORD)))
         .map(UserDataMapper.INSTANCE::toUserEntity)
         .flatMap(userEntity -> {
           String accessToken = tokenService.generateAccessToken(userEntity);

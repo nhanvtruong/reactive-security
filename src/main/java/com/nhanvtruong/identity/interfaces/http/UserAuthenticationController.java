@@ -24,13 +24,15 @@ public class UserAuthenticationController {
   public Mono<ResponseEntity<ApiResponse<UserLoginResponseDto>>> login(
       @Valid @RequestBody UserLoginRequestDto userLoginRequestDto) {
     return userAuthenticationService.login(userLoginRequestDto)
-        .map(res -> ResponseEntity.ok(new ApiResponse<>(res)));
+        .map(res -> ResponseEntity.ok(
+            ApiResponse.<UserLoginResponseDto>builder().data(res).build()
+        ));
   }
 
   @PostMapping("users/logout")
   public Mono<ResponseEntity<ApiResponse<String>>> logout(
       @RequestHeader("Authorization") String authorization) {
-    return Mono.just(new ResponseEntity<>(new ApiResponse<>("logout"), HttpStatus.ACCEPTED));
+    return Mono.just(new ResponseEntity<>(null, HttpStatus.ACCEPTED));
   }
 
 
