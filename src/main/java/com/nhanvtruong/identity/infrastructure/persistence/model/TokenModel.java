@@ -17,7 +17,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class TokenModel extends Metadata implements Persistable<UUID> {
+public class TokenModel extends Datemetadata implements Persistable<UUID> {
 
   @Id
   private UUID sessionId;
