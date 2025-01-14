@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.r2dbc.config.EnableR2dbcAuditing;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.r2dbc.core.DatabaseClient;
 import reactor.core.scheduler.Schedulers;
@@ -15,6 +16,7 @@ import reactor.core.scheduler.Schedulers;
 @Configuration
 @RequiredArgsConstructor
 @EnableR2dbcRepositories(basePackages = "com.nhanvtruong.identity.infrastructure.persistence.repository")
+@EnableR2dbcAuditing
 public class R2dbcConfiguration {
 
   private final DatabaseClient databaseClient;

@@ -7,20 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Builder
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity {
+@NoArgsConstructor
+public class TokenEntity {
 
-  private String username;
-  private String password;
-  private String email;
   private UUID sessionId;
-
-  public UUID generateSessionId() {
-    sessionId = UUID.randomUUID();
-    return sessionId;
-  }
+  private String subject;
+  private boolean expired;
+  private String accessToken;
+  private String refreshToken;
 }

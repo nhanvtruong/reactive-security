@@ -1,17 +1,17 @@
 package com.nhanvtruong.identity.infrastructure.config.security;
 
-import com.nhanvtruong.identity.domain.entities.UserEntity;
+import com.nhanvtruong.identity.domain.entities.TokenEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import java.util.function.Function;
 
 public interface TokenService {
 
-  JwtBuilder jwtTokenBuilder(UserEntity userDetails, Long expiresInMilliseconds);
+  JwtBuilder jwtTokenBuilder(TokenEntity tokenDetails, Long expiresInMilliseconds);
 
-  String generateAccessToken(UserEntity userDetails);
+  String generateAccessToken(TokenEntity tokenDetails );
 
-  String generateRefreshToken(UserEntity userDetails);
+  String generateRefreshToken(TokenEntity tokenDetails);
 
   String extractSubjectFromToken(String token);
 

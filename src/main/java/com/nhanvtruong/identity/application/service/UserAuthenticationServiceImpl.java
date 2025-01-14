@@ -4,9 +4,10 @@ import static com.nhanvtruong.identity.application.exceptions.enums.ErrorsEnum.I
 
 import com.nhanvtruong.identity.application.exceptions.IncorrectUsernamePasswordException;
 import com.nhanvtruong.identity.application.mapper.UserDataMapper;
-import com.nhanvtruong.identity.application.port.UserDataAdapter;
+import com.nhanvtruong.identity.application.port.TokenDataAdapter;
 import com.nhanvtruong.identity.application.port.UserDetailsAdapter;
-import com.nhanvtruong.identity.infrastructure.config.security.TokenService;
+import com.nhanvtruong.identity.domain.aggregates.UserLoginAggregate;
+import com.nhanvtruong.identity.domain.entities.TokenEntity;
 import com.nhanvtruong.identity.interfaces.dto.res.UserLoginRequestDto;
 import com.nhanvtruong.identity.interfaces.dto.rq.UserLoginResponseDto;
 import com.nhanvtruong.identity.interfaces.service.UserAuthenticationService;
@@ -19,9 +20,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class UserAuthenticationServiceImpl implements UserAuthenticationService {
 
-  private final UserDataAdapter userDataAdapter;
-
-  private final TokenService tokenService;
+  private final TokenDataAdapter tokenDataAdapter;
 
   private final UserDetailsAdapter userDetailsAdapter;
 
@@ -36,9 +35,11 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             Mono.error(new IncorrectUsernamePasswordException(INCORRECT_USER_NAME_PASSWORD)))
         .map(UserDataMapper.INSTANCE::toUserEntity)
         .flatMap(userEntity -> {
-          String accessToken = tokenService.generateAccessToken(userEntity);
-          String refreshToken = tokenService.generateRefreshToken(userEntity);
-          return Mono.just(new UserLoginResponseDto(accessToken, refreshToken));
+          UserLoginAggregate loginAggregate = UserLoginAggregate.builder().user(userEntity).build();
+          TokenEntity tokenDetails = loginAggregate.buildTokenEntity();
+          return tokenDataAdapter.generateToken(tokenDetails)
+              .map(token ->
+                  new UserLoginResponseDto(token.getAccessToken(), token.getRefreshToken()));
         });
   }
 

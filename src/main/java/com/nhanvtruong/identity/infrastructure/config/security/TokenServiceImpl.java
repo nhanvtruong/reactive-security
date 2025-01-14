@@ -1,6 +1,6 @@
 package com.nhanvtruong.identity.infrastructure.config.security;
 
-import com.nhanvtruong.identity.domain.entities.UserEntity;
+import com.nhanvtruong.identity.domain.entities.TokenEntity;
 import com.nhanvtruong.identity.infrastructure.config.properties.SecurityProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -21,24 +21,28 @@ public class TokenServiceImpl implements TokenService {
   private final SecurityProperties securityProperties;
 
   @Override
-  public JwtBuilder jwtTokenBuilder(UserEntity userDetails, Long expiresInMilliseconds) {
+  public JwtBuilder jwtTokenBuilder(TokenEntity tokenEntity, Long expiresInMilliseconds) {
     return Jwts.builder()
-        .subject(userDetails.getUsername())
+        .subject(tokenEntity.getSubject())
         .issuedAt(Timestamp.from(Instant.now()))
         .expiration(Timestamp.from(Instant.now().plusMillis(expiresInMilliseconds)))
         .signWith(getSignInKey());
   }
 
   @Override
-  public String generateAccessToken(UserEntity userDetails) {
-    return jwtTokenBuilder(userDetails, securityProperties.getAccessTokenExpiration())
-        .claim("tokenType", TokenType.ACCESS_TOKEN.name()).compact();
+  public String generateAccessToken(TokenEntity tokenDetails) {
+    return jwtTokenBuilder(tokenDetails, securityProperties.getAccessTokenExpiration())
+        .claim("tokenType", TokenType.ACCESS_TOKEN.name())
+        .claim("sessionId",tokenDetails.getSessionId())
+        .compact();
   }
 
   @Override
-  public String generateRefreshToken(UserEntity userDetails) {
-    return jwtTokenBuilder(userDetails, securityProperties.getRefreshTokenExpiration())
-        .claim("tokenType", TokenType.REFRESH_TOKEN.name()).compact();
+  public String generateRefreshToken(TokenEntity tokenDetails) {
+    return jwtTokenBuilder(tokenDetails, securityProperties.getRefreshTokenExpiration())
+        .claim("tokenType", TokenType.REFRESH_TOKEN.name())
+        .claim("sessionId",tokenDetails.getSessionId())
+        .compact();
   }
 
   @Override
