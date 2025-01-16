@@ -3,6 +3,7 @@ package com.nhanvtruong.identity.application.exceptions;
 import com.nhanvtruong.identity.application.exceptions.enums.ErrorsEnum;
 import com.nhanvtruong.identity.interfaces.dto.res.ApiResponse;
 import com.nhanvtruong.identity.interfaces.dto.res.ErrorResponse;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,6 +35,15 @@ public class GlobalExceptionHandlers {
     return new ResponseEntity<>(
         ApiResponse.<Void>builder().error(error).build(),
         HttpStatus.CONFLICT
+    );
+  }
+
+  @ExceptionHandler({ExpiredJwtException.class})
+  public ResponseEntity<ApiResponse<Void>> handleExpiredJwtException(final Exception e) {
+    var error = new ErrorResponse(ErrorsEnum.SESSION_EXPIRED);
+    return new ResponseEntity<>(
+        ApiResponse.<Void>builder().error(error).description(e.getMessage()).build(),
+        HttpStatus.UNAUTHORIZED
     );
   }
 

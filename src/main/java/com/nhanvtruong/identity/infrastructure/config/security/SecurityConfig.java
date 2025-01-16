@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.authentication.logout.ServerLogoutHandler;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -21,6 +22,8 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class SecurityConfig {
 
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+  private final ServerLogoutHandler logoutHandler;
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -43,7 +46,11 @@ public class SecurityConfig {
         .addFilterBefore(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
         .authorizeExchange(exchange -> exchange.anyExchange().authenticated())
         .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
-        .formLogin(ServerHttpSecurity.FormLoginSpec::disable).build();
+        .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
+        .logout(logoutSpec -> logoutSpec
+            .logoutUrl("/public/users/logout")
+            .logoutHandler(logoutHandler))
+        .build();
   }
 
 }

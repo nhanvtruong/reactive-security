@@ -6,4 +6,6 @@ import reactor.core.publisher.Mono;
 public interface TokenDataAdapter {
 
   Mono<TokenEntity> generateToken(TokenEntity tokenEntity);
+
+  Mono<Void> invalidateToken(String authToken);
 }

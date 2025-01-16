@@ -1,5 +1,6 @@
 package com.nhanvtruong.identity.application.service;
 
+import static com.nhanvtruong.identity.application.constants.HeaderConstants.BEARER;
 import static com.nhanvtruong.identity.application.exceptions.enums.ErrorsEnum.INCORRECT_USER_NAME_PASSWORD;
 
 import com.nhanvtruong.identity.application.exceptions.IncorrectUsernamePasswordException;
@@ -44,8 +45,9 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
   }
 
   @Override
-  public Mono<Void> logout(String authToken) {
-    return null;
+  public Mono<Void> logout(String authorizationHeader) {
+    String token = authorizationHeader.substring(BEARER.length()).trim();
+    return tokenDataAdapter.invalidateToken(token);
   }
 
 }

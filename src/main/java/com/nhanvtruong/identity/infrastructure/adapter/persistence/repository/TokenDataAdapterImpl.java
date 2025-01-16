@@ -1,10 +1,14 @@
 package com.nhanvtruong.identity.infrastructure.adapter.persistence.repository;
 
+import static com.nhanvtruong.identity.infrastructure.adapter.security.ClaimAttributes.SESSION_ID;
+
 import com.nhanvtruong.identity.application.mapper.TokenDataMapper;
 import com.nhanvtruong.identity.application.port.TokenDataAdapter;
 import com.nhanvtruong.identity.domain.entities.TokenEntity;
-import com.nhanvtruong.identity.infrastructure.adapter.security.TokenProvider;
 import com.nhanvtruong.identity.infrastructure.adapter.persistence.model.TokenModel;
+import com.nhanvtruong.identity.infrastructure.adapter.security.TokenProvider;
+import java.util.Map;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +33,13 @@ public class TokenDataAdapterImpl implements TokenDataAdapter {
     tokenModel = tokenModel.setAsNew(true);
     return tokenReactiveRepository.save(tokenModel)
         .map(savedModel -> tokenEntity);
+  }
+
+  @Override
+  public Mono<Void> invalidateToken(String authToken) {
+    Map<String,Object> claims = tokenProvider.extractClaimsWithToken(authToken);
+    UUID sessionId = UUID.fromString((String) claims.get(SESSION_ID));
+    return tokenReactiveRepository.invalidateSession(sessionId);
   }
 
 

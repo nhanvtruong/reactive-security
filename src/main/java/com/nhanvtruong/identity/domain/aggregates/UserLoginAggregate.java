@@ -2,6 +2,7 @@ package com.nhanvtruong.identity.domain.aggregates;
 
 import com.nhanvtruong.identity.domain.entities.TokenEntity;
 import com.nhanvtruong.identity.domain.entities.UserEntity;
+import com.nhanvtruong.identity.domain.vo.LoginStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +26,11 @@ public class UserLoginAggregate {
         .revoked(false)
         .build();
     return token;
+  }
+
+  public UserLoginAggregate activateUser(){
+    user.setStatus(LoginStatus.ACTIVE);
+    return this;
   }
 
 

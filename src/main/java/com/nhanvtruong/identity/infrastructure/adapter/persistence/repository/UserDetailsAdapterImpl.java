@@ -12,6 +12,8 @@ public class UserDetailsAdapterImpl implements UserDetailsAdapter {
 
   private final UserReactiveRepository userReactiveRepository;
 
+  private final TokenReactiveRepository tokenReactiveRepository;
+
   @Override
   public Mono<UserDetails> findByUsername(String username) {
     return userReactiveRepository.findByUsername(username, UserDetails.class);

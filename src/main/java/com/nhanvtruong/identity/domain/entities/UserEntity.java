@@ -1,5 +1,6 @@
 package com.nhanvtruong.identity.domain.entities;
 
+import com.nhanvtruong.identity.domain.vo.LoginStatus;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,7 @@ public class UserEntity {
   private String password;
   private String email;
   private UUID sessionId;
+  private LoginStatus status;
 
   public UUID generateSessionId() {
     sessionId = UUID.randomUUID();

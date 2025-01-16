@@ -8,6 +8,6 @@ public interface UserAuthenticationService {
 
   Mono<UserLoginResponseDto> login(UserLoginRequestDto userLoginRequestDto);
 
-  Mono<Void> logout(String authToken);
+  Mono<Void> logout(String authorizationHeader);
 
 }

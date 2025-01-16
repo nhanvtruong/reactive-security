@@ -6,8 +6,8 @@ import com.nhanvtruong.identity.interfaces.dto.rq.UserLoginResponseDto;
 import com.nhanvtruong.identity.interfaces.service.UserAuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -29,10 +29,11 @@ public class UserAuthenticationController {
         ));
   }
 
-  @PostMapping("users/logout")
+  @GetMapping("/public/users/logout")
   public Mono<ResponseEntity<ApiResponse<String>>> logout(
       @RequestHeader("Authorization") String authorization) {
-    return Mono.just(new ResponseEntity<>(null, HttpStatus.ACCEPTED));
+    return userAuthenticationService.logout(authorization)
+        .then(Mono.fromCallable(() -> ResponseEntity.noContent().build()));
   }
 
 
