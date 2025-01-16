@@ -19,7 +19,7 @@ import reactor.core.scheduler.Schedulers;
 @Log4j2
 @Configuration
 @RequiredArgsConstructor
-@EnableR2dbcRepositories(basePackages = "com.nhanvtruong.identity.infrastructure.persistence.repository")
+@EnableR2dbcRepositories(basePackages = "com.nhanvtruong.identity.infrastructure.adapter.persistence.repository")
 @EnableR2dbcAuditing
 public class R2dbcConfiguration {
 

@@ -1,17 +1,17 @@
-package com.nhanvtruong.identity.infrastructure.persistence.model;
+package com.nhanvtruong.identity.infrastructure.adapter.persistence.model;
 
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @Setter
 public class DateMetadata {
 
-  @LastModifiedBy
-  protected String lastModifiedBy;
+  @CreatedDate
+  protected LocalDateTime createdDate;
   @LastModifiedDate
   protected LocalDateTime lastModifiedDate;
 

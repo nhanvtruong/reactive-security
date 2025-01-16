@@ -1,11 +1,11 @@
-package com.nhanvtruong.identity.infrastructure.config.security;
+package com.nhanvtruong.identity.infrastructure.adapter.security;
 
 import com.nhanvtruong.identity.domain.entities.TokenEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import java.util.function.Function;
 
-public interface TokenService {
+public interface TokenProvider {
 
   JwtBuilder jwtTokenBuilder(TokenEntity tokenDetails, Long expiresInMilliseconds);
 

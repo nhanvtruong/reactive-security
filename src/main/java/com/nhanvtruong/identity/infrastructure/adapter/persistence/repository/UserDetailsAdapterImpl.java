@@ -1,4 +1,4 @@
-package com.nhanvtruong.identity.infrastructure.persistence.repository;
+package com.nhanvtruong.identity.infrastructure.adapter.persistence.repository;
 
 import com.nhanvtruong.identity.application.port.UserDetailsAdapter;
 import lombok.RequiredArgsConstructor;

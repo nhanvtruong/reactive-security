@@ -1,7 +1,7 @@
 package com.nhanvtruong.identity.application.mapper;
 
 import com.nhanvtruong.identity.domain.entities.UserEntity;
-import com.nhanvtruong.identity.infrastructure.persistence.model.UserModel;
+import com.nhanvtruong.identity.infrastructure.adapter.persistence.model.UserModel;
 import com.nhanvtruong.identity.interfaces.dto.res.UserCreatedResponseDto;
 import com.nhanvtruong.identity.interfaces.dto.rq.UserCreatedRequestDto;
 import org.mapstruct.Mapper;

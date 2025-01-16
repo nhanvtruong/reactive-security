@@ -1,4 +1,4 @@
-package com.nhanvtruong.identity.infrastructure.config.security;
+package com.nhanvtruong.identity.infrastructure.adapter.security;
 
 import com.nhanvtruong.identity.domain.entities.TokenEntity;
 import com.nhanvtruong.identity.infrastructure.config.properties.SecurityProperties;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class TokenServiceImpl implements TokenService {
+public class TokenProviderImpl implements TokenProvider {
 
   private final SecurityProperties securityProperties;
 

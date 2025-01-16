@@ -1,9 +1,9 @@
-package com.nhanvtruong.identity.infrastructure.persistence.repository;
+package com.nhanvtruong.identity.infrastructure.adapter.persistence.repository;
 
 import com.nhanvtruong.identity.application.mapper.UserDataMapper;
 import com.nhanvtruong.identity.application.port.UserDataAdapter;
 import com.nhanvtruong.identity.domain.entities.UserEntity;
-import com.nhanvtruong.identity.infrastructure.persistence.model.UserModel;
+import com.nhanvtruong.identity.infrastructure.adapter.persistence.model.UserModel;
 import com.nhanvtruong.identity.interfaces.dto.res.UserCreatedResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

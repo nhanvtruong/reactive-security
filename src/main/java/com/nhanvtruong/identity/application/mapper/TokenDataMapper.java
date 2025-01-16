@@ -1,7 +1,7 @@
 package com.nhanvtruong.identity.application.mapper;
 
 import com.nhanvtruong.identity.domain.entities.TokenEntity;
-import com.nhanvtruong.identity.infrastructure.persistence.model.TokenModel;
+import com.nhanvtruong.identity.infrastructure.adapter.persistence.model.TokenModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

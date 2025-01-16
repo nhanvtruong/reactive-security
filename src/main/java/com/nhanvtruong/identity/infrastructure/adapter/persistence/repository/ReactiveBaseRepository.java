@@ -1,4 +1,4 @@
-package com.nhanvtruong.identity.infrastructure.persistence.repository;
+package com.nhanvtruong.identity.infrastructure.adapter.persistence.repository;
 
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.data.repository.NoRepositoryBean;

@@ -1,6 +1,6 @@
-package com.nhanvtruong.identity.infrastructure.persistence.repository;
+package com.nhanvtruong.identity.infrastructure.adapter.persistence.repository;
 
-import com.nhanvtruong.identity.infrastructure.persistence.model.UserModel;
+import com.nhanvtruong.identity.infrastructure.adapter.persistence.model.UserModel;
 import reactor.core.publisher.Mono;
 
 public interface UserReactiveRepository extends ReactiveBaseRepository<UserModel, Long> {

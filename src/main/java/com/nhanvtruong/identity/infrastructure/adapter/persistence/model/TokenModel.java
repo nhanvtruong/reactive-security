@@ -1,4 +1,4 @@
-package com.nhanvtruong.identity.infrastructure.persistence.model;
+package com.nhanvtruong.identity.infrastructure.adapter.persistence.model;
 
 import java.util.UUID;
 import lombok.AllArgsConstructor;
