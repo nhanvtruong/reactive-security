@@ -8,7 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @Setter
-public class Datemetadata {
+public class DateMetadata {
 
   @LastModifiedBy
   protected String lastModifiedBy;

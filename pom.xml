@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nhanvtruong</groupId>
-	<artifactId>identity</artifactId>
+	<artifactId>reactive-security</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>identity</name>
+	<name>reactive-security</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

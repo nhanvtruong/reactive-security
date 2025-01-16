@@ -8,7 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 @Getter
 @Setter
-public class Metadata extends Datemetadata{
+public class Metadata extends DateMetadata {
 
   @CreatedBy
   protected String createdBy;

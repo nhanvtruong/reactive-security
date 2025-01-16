@@ -16,7 +16,7 @@ public class TokenEntity {
 
   private UUID sessionId;
   private String subject;
-  private boolean expired;
+  private boolean revoked;
   private String accessToken;
   private String refreshToken;
 }

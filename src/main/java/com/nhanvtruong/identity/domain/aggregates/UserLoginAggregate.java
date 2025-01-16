@@ -22,7 +22,7 @@ public class UserLoginAggregate {
     token = TokenEntity.builder()
         .subject(user.getUsername())
         .sessionId(user.generateSessionId())
-        .expired(false)
+        .revoked(false)
         .build();
     return token;
   }
