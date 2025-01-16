@@ -1,5 +1,10 @@
 package com.nhanvtruong.identity.infrastructure.adapter.security;
 
+import static com.nhanvtruong.identity.infrastructure.adapter.security.ClaimAttributes.ACCESS_TOKEN;
+import static com.nhanvtruong.identity.infrastructure.adapter.security.ClaimAttributes.REFRESH_TOKEN;
+import static com.nhanvtruong.identity.infrastructure.adapter.security.ClaimAttributes.SESSION_ID;
+import static com.nhanvtruong.identity.infrastructure.adapter.security.ClaimAttributes.TOKEN_TYPE;
+
 import com.nhanvtruong.identity.domain.entities.TokenEntity;
 import com.nhanvtruong.identity.infrastructure.config.properties.SecurityProperties;
 import io.jsonwebtoken.Claims;
@@ -32,16 +37,16 @@ public class TokenProviderImpl implements TokenProvider {
   @Override
   public String generateAccessToken(TokenEntity tokenDetails) {
     return jwtTokenBuilder(tokenDetails, securityProperties.getAccessTokenExpiration())
-        .claim("tokenType", TokenType.ACCESS_TOKEN.name())
-        .claim("sessionId",tokenDetails.getSessionId())
+        .claim(TOKEN_TYPE, ACCESS_TOKEN)
+        .claim(SESSION_ID, tokenDetails.getSessionId())
         .compact();
   }
 
   @Override
   public String generateRefreshToken(TokenEntity tokenDetails) {
     return jwtTokenBuilder(tokenDetails, securityProperties.getRefreshTokenExpiration())
-        .claim("tokenType", TokenType.REFRESH_TOKEN.name())
-        .claim("sessionId",tokenDetails.getSessionId())
+        .claim(TOKEN_TYPE, REFRESH_TOKEN)
+        .claim(SESSION_ID, tokenDetails.getSessionId())
         .compact();
   }
 
@@ -65,7 +70,7 @@ public class TokenProviderImpl implements TokenProvider {
     return claimsTFunction.apply(claims);
   }
 
-  public SecretKey getSignInKey() {
+  private SecretKey getSignInKey() {
     byte[] keyByes = Decoders.BASE64.decode(securityProperties.getSecretKey());
     return Keys.hmacShaKeyFor(keyByes);
   }
